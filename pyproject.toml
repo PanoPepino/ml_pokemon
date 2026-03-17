@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ml_pokemon"  
+version = "1.0.0"
+description = "Pokémon ML Predictor with zoomorphology insights"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "xgboost",
+    "catboost",
+    "lightgbm",
+    "joblib",
+    "matplotlib"
+]
+
+[project.scripts]
+ml_pokemon_preprocessing = "src.features.preprocessing:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

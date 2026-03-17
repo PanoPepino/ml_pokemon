@@ -6,6 +6,8 @@
 
 - Game Freak, the Pokemon videogame developers, are probably biased by nature when creating pokemons. In that sense, these creatures should follow this underlying bias and their properties, like `BST` are secretly related to this nature imprint.
 
+- For detailed explanations on this project and exploration data analysis, see [PDF_DOCUMENTATION](ml_pokemon_documentation.pdf)
+
 
 
 ## Predicted values for New Generation Pokemon
