@@ -28,9 +28,9 @@
     <td align="center"><img src="figures/sprites/gecqua.png" width="320" height="320" style="border: 3px solid #2da1ef; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
   </tr>
   <tr>
-    <td align="center"><strong>Best BST so far<br>273</strong></td>
-    <td align="center"><strong>Best BST so far<br>304</strong></td>
-    <td align="center"><strong>Best BST so far<br>292</strong></td>
+    <td align="center"><strong>Best BST so far<br>272±2</strong></td>
+    <td align="center"><strong>Best BST so far<br>306±9</strong></td>
+    <td align="center"><strong>Best BST so far<br>297±5</strong></td>
   </tr>
 </table>
 
@@ -40,7 +40,7 @@
 <tr>
   <td align="center">
     <img src="./plots/metrics_ld.png" 
-         style="border: 3px solid #0c2eb6; border-radius: 5px; height: 200px; max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         style="border: 3px solid #890613; border-radius: 5px; height: 200px; max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
     <br><strong>R2 Leaderboard for different models</strong>
   </td>
 </tr>

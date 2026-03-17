@@ -1,0 +1,59 @@
+# Byte-compiled / optimized files (key for Python)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments (virtualenvs)
+venv/
+env/
+.venv/
+ENV/
+.conda/
+
+# Jupyter (common in ML notebooks)
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Testing / Coverage
+.tox/
+.coverage
+.pytest_cache/
+.cache/
+htmlcov/
+
+# Logs / Temp
+*.log
+.DS_Store
+Thumbs.db
+
+# Packaging / Builds
+build/
+dist/
+*.egg-info/
+.pip/
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.swp
+
+# Avoid some folders
+documentation/
+figures/
+
+# Avoid specific files
+old_readme.md
+TO_DO.md
+datasets/data_instructions.md
+
+
+# Docs / Reports (your .tex request)
+*.tex
+*.aux
+*.log  # LaTeX logs
+docs/_build/
+
+# Deployment (cloud-specific)
+.DS_Store
+.env    

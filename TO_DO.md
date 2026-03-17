@@ -30,29 +30,26 @@
 - [X] Design pipeline to implement all 4 models at same time
 - [X] Move those preprocessor functions to src after checking everything works.
 - [X] Add nice pictures for 3 initials and expected BST.
+- [X] Create function to explore GridSearch, extract best parameters and feed in get_leaderboard
 
-
-- [ ] Create function to explore GridSearch, extract best parameters and feed in get_leaderboard
-- [ ] Fix extract importance in leaderboard for each feat. (understand it)
-- [ ] Explore correlation matrix. (Evaluate if it is the same thing as importance)
-- [ ] Enhance Readme + link Documentation to it.
+- [ ] Create .py file to easily execute everything.
+- [ ] Drop all info into .pdf from old_readme
 - [ ] Add documentation.pdf to download.
-
+- [ ] Enhance Readme + link Documentation to it.
 - [ ] Create gitignore for all sprites and unneccesary .tex files.
-- [ ] Think better on renormalisation of s3c3 and single to s2c2. Increase sample, but bias? (see notes)
-- [ ] Find relation between pokemon shape and stats?? 
-- [ ] What about shape and type??
-- [ ] Start improving model so that Gen 10 initials value are not so bad.
-
-
 
 
 ---
+- [ ] Fix extract importance in leaderboard for each feat. (understand it)
+- [ ] Explore correlation matrix. (Evaluate if it is the same thing as importance)
+- [ ] Think better on renormalisation of s3c3 and single to s2c2. Increase sample, but bias? (see notes)
+- [ ] Find relation between pokemon shape and stats?? 
+- [ ] What about shape and type??
 - [ ] Determine biological zoomorphology to compute density.
 - [ ] Recall the normalised density to avoide big spikes.
 - [ ] Think of other biological features to be added to the model.
-- [ ] Think of a way of correlating `base_exp`, `ev_granted` and `total_stats`.
-- [ ] Extract total_stats per generation, normalised, to get the power creep increment.
+
+
 
 
 

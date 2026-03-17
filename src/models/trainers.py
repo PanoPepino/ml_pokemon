@@ -1,4 +1,5 @@
 from catboost import CatBoostRegressor
+import catboost as cb
 from lightgbm import LGBMRegressor
 from psutil import virtual_memory
 from sklearn.base import BaseEstimator, RegressorMixin
@@ -32,12 +33,12 @@ class Cat_Trainer(BaseEstimator, RegressorMixin):  # To inherit other inbuilt fu
         self.model = None
         # print(self.cat_features) To check if new cats have been added.
 
-    def fit(self, x, y):
+    def fit(self, x, y, eval_set=None, cat_features=None, **kwargs):
         all_features = [x.columns.get_loc(c) for c in self.cat_features]
         # print(all_features) To check all cats have been converted
 
         self.model = CatBoostRegressor(cat_features=all_features, **self.params)
-        self.model.fit(x.copy(), y)
+        self.model.fit(x.copy(), y, eval_set=eval_set, cat_features=cat_features, **kwargs)
         return self
 
     def predict(self, test_data):
@@ -52,9 +53,12 @@ class Cat_Trainer(BaseEstimator, RegressorMixin):  # To inherit other inbuilt fu
     def get_params(self, deep=True):  # This is to clone **params to pass in the cross_validation, as cross_validation does not have my in-built models
         tunable_params = {
             'learning_rate': self.params.get('learning_rate'),
-            'depth': self.params.get('depth'),
+            'max_depth': self.params.get('max_depth'),
             'iterations': self.params.get('iterations'),
             'l2_leaf_reg': self.params.get('l2_leaf_reg'),
+            'random_strength': self.params.get('random_strength'),
+            'bagging_temperature': self.params.get('bagging_temperature'),
+            'n_estimators': self.params.get('n_estimators')
             # Add others you tune: 'border_count', 'rsm', etc
         }
         tunable_params = {k: v for k, v in tunable_params.items() if v is not None}
@@ -91,7 +95,7 @@ class LGBM_Trainer(BaseEstimator, RegressorMixin):
         self.median_model = None
         self.quantile_models = None
 
-    def fit(self, x, y):
+    def fit(self, x, y, eval_set=None, **kwargs):
         # The median value
         self.median_model = LGBMRegressor(objective='quantile',
                                           alpha=0.5,
@@ -99,7 +103,7 @@ class LGBM_Trainer(BaseEstimator, RegressorMixin):
         self.median_model.fit(x, y)
 
         # The upper and lower for uncerteainty
-        quants = [0.025, 0.975]
+        quants = [0.1, 0.9]
         self.quantile_models = {quant: LGBMRegressor(
             objective='quantile', alpha=quant, **self.params).fit(x, y) for quant in quants}
 
@@ -109,8 +113,8 @@ class LGBM_Trainer(BaseEstimator, RegressorMixin):
         return self.median_model.predict(X)
 
     def predict_unc(self, X):
-        low = self.quantile_models[0.025].predict(X)
-        high = self.quantile_models[0.975].predict(X)
+        low = self.quantile_models[0.1].predict(X)
+        high = self.quantile_models[0.9].predict(X)
 
         return (low + high)/2, (high - low)/2
 

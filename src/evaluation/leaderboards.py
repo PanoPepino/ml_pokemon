@@ -22,10 +22,10 @@ def metrics_leaderboard(prep_data, **params):
     rows = []
     for name, (X_tr_p, X_te_p, _, cats, y_tr, y_te, _) in prep_data.items():
         if name in ("ordinal", "native"):
-            trainer = Cat_Trainer(cat_features=cats, **params)
+            trainer = Cat_Trainer(cat_features=cats, **params[name])
 
         else:
-            trainer = LGBM_Trainer(**params)
+            trainer = LGBM_Trainer(**params['light_gbm'])
 
         trainer.fit(X_tr_p, y_tr)  #  Fit
 
@@ -81,12 +81,12 @@ def stats_prediction(prepared_data, **params):
 
     rows = []
     for name, (X_tr_p, _, gen_p, cats, y_tr, _, gen_names) in prepared_data.items():
-        if name in ("ordinal", "native"):
-            trainer = Cat_Trainer(cat_features=cats, **params)
+        if name in ('ordinal', 'native'):
+            trainer = Cat_Trainer(cat_features=cats, **params[name])
             trainer.fit(X_tr_p, y_tr)
             vals, uncs = trainer.predict_unc(gen_p)
         else:
-            trainer = LGBM_Trainer(**params)
+            trainer = LGBM_Trainer(**params['light_gbm'])
             trainer.fit(X_tr_p, y_tr)
             vals, uncs = trainer.predict_unc(gen_p)
 
