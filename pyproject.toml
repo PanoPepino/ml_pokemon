@@ -1,25 +1,50 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "ml_pokemon"  
-version = "1.0.0"
-description = "Pokémon ML Predictor with zoomorphology insights"
+name = "pokeml"
+version = "0.1.0"
+description = "Pokémon Stats Predictor for new generation(s)"
+readme = "README.md"
 requires-python = ">=3.10"
-dependencies = [
-    "pandas",
-    "numpy",
-    "scikit-learn",
-    "xgboost",
-    "catboost",
-    "lightgbm",
-    "joblib",
-    "matplotlib"
+
+authors = [
+  { name = "PanoPepino", email = "panizofisico@gmail.com" }
 ]
 
-[project.scripts]
-ml_pokemon_preprocessing = "src.features.preprocessing:main"
+keywords = [
+  "pokemon",
+  "ml",
+  "xgboost",
+  "cli",
+  "stats-prediction",
+  "catboost",
+  "lightgbm"
+]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
+dependencies = [
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "xgboost>=2.0",
+  "typer>=0.9",
+  "rich>=13",
+  "requests>=2.31",
+  "matplotlib>=3.7",
+  "seaborn>=0.13",
+  "joblib>=1.3",
+  "pyyaml>=6.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/PanoPepino/Pokeml"
+Repository = "https://github.com/PanoPepino/Pokeml"
+
+[project.scripts]
+pokeml = "pokeml.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pokeml*"]
+exclude = ["tests*", "notebooks*", "datasets*", "figures*"]
+namespaces = false

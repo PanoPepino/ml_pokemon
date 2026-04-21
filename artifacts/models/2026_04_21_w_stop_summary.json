@@ -1,0 +1,20 @@
+[
+  {
+    "model_name": "cat_ordinal",
+    "model_path": "artifacts/models/2026_04_21_w_stop_cat_ordinal.joblib",
+    "n_train_rows": 757,
+    "n_test_rows": 325
+  },
+  {
+    "model_name": "cat_native",
+    "model_path": "artifacts/models/2026_04_21_w_stop_cat_native.joblib",
+    "n_train_rows": 757,
+    "n_test_rows": 325
+  },
+  {
+    "model_name": "light_gbm",
+    "model_path": "artifacts/models/2026_04_21_w_stop_light_gbm.joblib",
+    "n_train_rows": 757,
+    "n_test_rows": 325
+  }
+]

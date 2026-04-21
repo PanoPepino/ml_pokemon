@@ -11,41 +11,38 @@
 
 
 ## Predicted values for New Generation Pokemon
-
-<!-- Leaderboard Section -->
-<table align="center" style="table-layout: fixed; width: 100%; max-width: 1000px;">
-<tr>
-  <td align="center">
-    <img src="./figures/stats_ld.png" 
-         style="border: 3px solid #0c2eb6; border-radius: 5px; height: 200px; max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <br><strong>BST Predictions for different models</strong>
-  </td>
-</tr>
-</table>
-
 <table align="center">
   <tr>
-    <td align="center"><img src="figures/browt.png" width="320" height="320" style="border: 3px solid #78C850;  border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
-    <td align="center"><img src="figures/pombon.png" width="320" height="320" style="border: 3px solid #F08030; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
-    <td align="center"><img src="figures/gecqua.png" width="320" height="320" style="border: 3px solid #2da1ef; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
-  </tr>
-  <tr>
-    <td align="center"><strong>Best BST so far<br>272±2</strong></td>
-    <td align="center"><strong>Best BST so far<br>306±9</strong></td>
-    <td align="center"><strong>Best BST so far<br>297±5</strong></td>
+    <td align="center"><img src="plots/browt.png" width="320" height="320" style="border: 3px solid #78C850;  border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
+    <td align="center"><img src="plots/pombon.png" width="320" height="320" style="border: 3px solid #F08030; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
+    <td align="center"><img src="plots/gecqua.png" width="320" height="320" style="border: 3px solid #2da1ef; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></td>
   </tr>
 </table>
 
-## The metrics leaderboard for 3 different models. Currently, no training at all.
-<!-- Leaderboard Section -->
-<table align="center" style="table-layout: fixed; width: 100%; max-width: 1000px;">
-<tr>
-  <td align="center">
-    <img src="./figures/metrics_ld.png" 
-         style="border: 3px solid #890613; border-radius: 5px; height: 200px; max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <br><strong>R2 Leaderboard for different models</strong>
-  </td>
-</tr>
-</table>
+<p align="center">
+<!-- PREDICTIONS -->
 
->
+|  Unnamed: 0  |  Browt   |  Pombon  |  Gecqua  |
+|:------------:|:--------:|:--------:|:--------:|
+|  cat_native  | 297 ± 18 | 311 ± 15 | 306 ± 11 |
+| cat_ordinal  | 292 ± 20 | 303 ± 9  | 299 ± 10 |
+|  light_gbm   | 277 ± 57 | 309 ± 26 | 295 ± 36 |
+<!-- PREDICTIONS -->
+</p>
+
+
+## The metrics leaderboard (best current iteration) for 3 different models
+
+<p align="center">
+<!-- LEADERBOARD -->
+
+|    model    |  tr_R2  |  tr_RMSE  |  tr_MAE  |  val_R2  |  val_RMSE  |  val_MAE  |  overfit_R2  |  overfit_RMSE  |  max_res  |
+|:-----------:|:-------:|:---------:|:--------:|:--------:|:----------:|:---------:|:------------:|:--------------:|:---------:|
+| cat_native  |  0.84   |   45.98   |  32.98   |   0.82   |   46.56    |   34.59   |     0.02     |     -0.58      |  192.71   |
+| cat_ordinal |  0.84   |   45.44   |  33.02   |   0.82   |   46.20    |   33.83   |     0.02     |     -0.76      |  199.81   |
+|  light_gbm  |  0.86   |   42.54   |  31.83   |   0.82   |   45.71    |   34.71   |     0.04     |     -3.17      |  191.69   |
+<!-- LEADERBOARD -->
+</p>
+
+
+

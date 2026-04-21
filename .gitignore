@@ -38,14 +38,18 @@ dist/
 .idea/
 *.swp
 
-# Avoid some folders
-documentation/
-sprites_plates/
+# Avoid some folders (but not the .pdf)
+documentation/*
+!documentation/*.pdf 
+types/
+
+sprites/
+catboost_info/
 
 # Avoid specific files
-old_readme.md
+old/
 TO_DO.md
-datasets/data_instructions.md
+
 
 
 # Docs / Reports (your .tex request)
