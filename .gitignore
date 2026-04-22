@@ -45,9 +45,8 @@ types/
 
 sprites/
 catboost_info/
-
-# Avoid specific files
 old/
+notebooks/
 TO_DO.md
 
 
