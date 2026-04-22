@@ -1,6 +1,5 @@
 import typer
 import pandas as pd
-import json
 
 from pathlib import Path
 from rich.console import Console
@@ -18,12 +17,12 @@ console = Console()
 ui = CliUI()
 
 
-@app.command('tuning', help='Find the best suited set of parameters. Extract best params')
+@app.command('tune', help='Find the best suited set of parameters with RandomSearchCV. Extract best params. Defaults tell you location for each required file')
 def tune_data(
         input_path: str = 'datasets/pkdx_min.csv',
         input_config: str = 'configs/tuning_easy.json',
         iterations: int = 1,
-        output_name: str = 'yyyy_mm_dd_something',  # Declare name of your json output (w/o extension)
+        output_name: str = 'artifacts/tuning/yyyy_mm_dd',  # Declare name of your json output (w/o extension)
 ):
     console.print('')
     ui.rule("PokéML Tuning")
@@ -33,17 +32,17 @@ def tune_data(
         f"[bold green]Tuning models[/bold green] ({iterations} iterations) ..."
     ):
         result = tuning(to_tune,
-                        my_grid=f'configs/{input_config}.json',
+                        my_grid=input_config,
                         search_iter=iterations,
                         output_name=output_name)
 
     ui.success("Tuning complete")
     ui.info(f"Relevant information for the best run:")
-    df = pd.read_csv(Path(f'artifacts/tuning/{output_name}_cv.csv'))
+    df = pd.read_csv(Path(f'{output_name}_cv.csv'))
     console.print(df_to_table(df, parse_json_columns=['top_features', 'top_feature_weights']), justify='center')
     ui.panel(
-        f"Best parameters: [bold]artifacts/tuning/{output_name}_bp.json[/bold]\n"
-        f"CV summary: [bold]artifacts/tuning/{output_name}_cv.csv[/bold]",
+        f"Best parameters: [bold]{output_name}_bp.json[/bold]\n"
+        f"CV summary: [bold]{output_name}_cv.csv[/bold]",
         title=f"[bold red] Tuning information [/bold red]",
     )
 
@@ -52,9 +51,9 @@ def tune_data(
 
 @app.command('train', help='Based on parameters found with tune, train the model. Create training curves')
 def train_data(
-    input_json: str = 'yyyy_mm_dd_something',
+    input_json: str = 'artifacts/tuning/yyyy_mm_dd_something_bp.json',
     input_path: str = 'datasets/pkdx_min.csv',
-    output_joblib: str = 'yyyy_mm_dd_something',
+    output_joblib: str = 'artifacts/models/yyyy_mm_dd_something.joblib',
     stop_loss: bool = False,
     early_stop: int = 40,
 ):
@@ -62,10 +61,9 @@ def train_data(
     ui.rule('PokéML Training')
     ui.info(f"Preparing initial data from [bold]{input_path}[/bold]")
 
-    chosen_tuning = f"artifacts/tuning/{input_json}.json"
-    ui.info(f"Tuning .json file: [bold]{chosen_tuning}[/bold]")
+    ui.info(f"Tuning .json file: [bold]{input_json}[/bold]")
     to_train = prepare_data_train(input_path)
-    params = load_json(chosen_tuning)
+    params = load_json(input_json)
 
     info_stop = []
     if stop_loss:
@@ -82,10 +80,20 @@ def train_data(
 
         result = train(to_train, params=params, output_name=output_joblib)
 
+    # Defining path for out
+    p = Path(output_joblib)
+    out_dir = p.parent
+    last = p.name
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    plot_dir = Path("plots/training")
+    plot_dir.mkdir(parents=True, exist_ok=True)
+
     ui.success("Training complete")
     ui.panel(
-        f"Trained models: [bold]artifacts/models/{output_joblib}.joblib[/bold]\n"
-        f"Training curves: [bold]plots/training/{output_joblib}_all_models_loss.png[/bold]",
+        f"Trained models: [bold]{output_joblib}.joblib[/bold]\n"
+        f"Training curves: [bold]plots/training/{last}_all_models_loss.png[/bold]",
         title=f"[bold red] Training information [/bold red]",
     )
 
@@ -94,7 +102,7 @@ def train_data(
 
 @app.command('predict', help='Load a database of new pokémon without defined BST and predict their stats')
 def predict_data(
-        input_run: str = 'yyyy_mm_dd_info',  # Declare name of joblibs (no extension)
+        input_run: str = 'artifcats/models/yyyy_mm_dd_info',  # Declare name of joblibs (no extension)
         new_poke_data: str = 'datasets/new_pokes.csv',
         output_preds: str = 'yyyy_mm_dd_name'):  # Declare name of csv (no ext)
 

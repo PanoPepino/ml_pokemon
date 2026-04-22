@@ -21,7 +21,11 @@ def train(prep_data,
     summary = []  # Recommended summary
     results = []  # Similarly as tuning, display more info
 
-    out_dir = Path("artifacts/models")
+    # Defining path for out
+    p = Path(output_name)
+    out_dir = p.parent
+    last = p.name
+
     out_dir.mkdir(parents=True, exist_ok=True)
 
     plot_dir = Path("plots/training")
@@ -38,7 +42,7 @@ def train(prep_data,
         trained_models[name] = pipeline
 
         # Saving each model in joblib + information in summary
-        model_path = out_dir / f"{output_name}_{name}.joblib"
+        model_path = out_dir / f"{last}_{name}.joblib"
         joblib.dump(pipeline, model_path, compress=3)
 
         summary.append({
@@ -51,7 +55,7 @@ def train(prep_data,
         # Saving evaluations for easier plotting of train/validation curves
         test_evals = trainer.get_evals()
         evals.append({
-            "model_name": f"{output_name}_{name}",
+            "model_name": f"{last}_{name}",
             "evals": test_evals
         })
 
@@ -67,12 +71,12 @@ def train(prep_data,
             ax=ax
         )
 
-    fig.suptitle(f"Training / Validation for {output_name} Run", fontsize=16)
+    fig.suptitle(f"Training / Validation for {last} Run", fontsize=16)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(plot_dir / f"{output_name}_all_models_loss.png", dpi=300, bbox_inches="tight")
+    fig.savefig(plot_dir / f"{last}_all_models_loss.png", dpi=500, bbox_inches="tight")
     plt.close(fig)
 
-    summary_path = out_dir / f"{output_name}_summary.json"
+    summary_path = out_dir / f"{last}_summary.json"
     with summary_path.open("w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 

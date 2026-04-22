@@ -90,14 +90,17 @@ def tuning(prep_data,
 
     # Defining outputs
 
-    out_dir = Path(f'artifacts/tuning/')
+    p = Path(output_name)
+    parent = str(p.parent)
+    last = p.name
+
+    out_dir = Path(parent)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     cv_data = pd.DataFrame(results)
-    cv_data.to_csv(f"{out_dir}/{output_name}_cv.csv", index=False)
+    print(f"{parent}/{last}_cv.csv", type(f"{parent}/{last}_cv.csv"))
+    cv_data.to_csv(f"{parent}/{last}_cv.csv", index=False)
 
-    best_params_path = Path(f"{out_dir}/{output_name}_bp.json")  # bp = best_params
+    best_params_path = Path(f"{output_name}_bp.json")  # bp = best_params
     with best_params_path.open("w", encoding="utf-8") as f:
         json.dump(future_fit, f, indent=2)
-
-    # Display table

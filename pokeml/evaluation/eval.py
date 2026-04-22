@@ -17,7 +17,7 @@ def real_vs_predicted(
 
     # Results
 
-    the_model = joblib.load(Path(f"artifacts/models/{input_model}.joblib"))
+    the_model = joblib.load(Path(f"{input_model}.joblib"))
     model_name = get_model(input_model)
 
     X_train, X_val, y_train, y_val, _ = input_data[model_name]
@@ -55,12 +55,19 @@ def real_vs_predicted(
                  'y_pred': y_pred_val,
                  'uncs': uncs_val}
 
-    residual_scatter(input_model, y_pred_val, y_val_real, uncs_val)
-
     # Saving metrics to csv
+
+    # Defining path for out
+    p = Path(input_model)
+    out_dir = p.parent
+    last = p.name
+
+    residual_scatter(last, y_pred_val, y_val_real, uncs_val)
+
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     out_dir = Path(f'artifacts/training/')
     out_dir.mkdir(parents=True, exist_ok=True)
 
     metrics_data = pd.DataFrame(metrics)
-    metrics_data.to_csv(f"{out_dir}/metrics_data_{input_model}.csv", index=False)
+    metrics_data.to_csv(f"{out_dir}/metrics_data_{last}.csv", index=False)

@@ -1,13 +1,13 @@
 {
   "common_params": {
-    "learning_rate": {"start": 0.01, "stop": 1, "step": 0.03},
-    "max_depth": {"start": 1, "stop": 40, "step": 2},
-    "n_estimators": {"start": 50, "stop": 2000, "step": 25}
+    "learning_rate": {"start": 0.01, "stop": 1, "step": 0.01},
+    "max_depth": {"start": 1, "stop": 16, "step": 1},
+    "n_estimators": {"start": 50, "stop": 2000, "step": 20}
   },
   "params_grid": {
     "catboost": {
       "random_strength": {"start": 0, "stop": 40, "step": 2},
-      "bagging_temperature": {"start": 0.1, "stop": 3, "step": 0.2},
+      "bagging_temperature": {"start": 0.1, "stop": 3, "step": 0.1},
       "l2_leaf_reg": {"start": 0.1, "stop": 2, "step": 0.1}
     },
     "light_gbm": {

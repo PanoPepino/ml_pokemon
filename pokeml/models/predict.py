@@ -15,7 +15,7 @@ def predict_stats(
     Load one or more saved model, predict on prepared new Pokémon data, and save CSV.
     """
 
-    model = joblib.load(Path(str(f"artifacts/models/{input_model}.joblib")))
+    model = joblib.load(Path(str(f"{input_model}.joblib")))
 
     the_model = get_model(input_model)
 
@@ -79,8 +79,12 @@ def predict_all_models(
 
     df_out = pd.concat(all_rows, axis=0)
 
-    out_dir = Path("artifacts/predictions")
+    p = Path(output_preds)
+    parent = str(p.parent)
+    last = p.name
+
+    out_dir = Path(parent)
     out_dir.mkdir(parents=True, exist_ok=True)
-    df_out.to_csv(out_dir / f"{output_preds}.csv")
+    df_out.to_csv(out_dir / f"{last}")
 
     return df_out
